@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Extension Profiles",
+  "version": "1.0",
+  "description": "Allows you to create and switch between chrome extension profiles.",
+  "permissions": ["management", "downloads", "storage"],
+  "action": {
+    "default_popup": "html/main-popup.html",
+    "default_title": "Extension Profiles"
+  },
+  "icons": {
+    "16": "image/icon.png",
+    "48": "image/icon.png",
+    "128": "image/icon.png"
+  },
+  "background": {
+    "service_worker": "js/background.js"
+  }
+}

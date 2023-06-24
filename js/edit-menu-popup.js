@@ -39,12 +39,17 @@ function saveProfileData() {
 
 // Function to add a new profile
 function addNewProfile(profileName) {
+
   // Check if the profile name already exists
-  const isDuplicate = profileData.some(profile => profile.toLowerCase() === profileName.toLowerCase());
-  
+  const isDuplicate = profileData.some(
+    (profile) => profile.toLowerCase() === profileName.toLowerCase()
+  );
+
   if (isDuplicate) {
     // Display dialogue box for duplicate profile name
-    alert('A profile with this name already exists. Try choosing a different name for this or add a number afterwards.');
+    alert(
+      'A profile with this name already exists. Try choosing a different name for this or add a number afterwards.'
+    );
   } else {
     profileData.push(profileName);
     saveProfileData();
@@ -52,76 +57,111 @@ function addNewProfile(profileName) {
   }
 }
 
+// Function to handle the delete button click event
+function handleDeleteButtonClick(profile) {
+  // Display a confirmation popup
+  const isConfirmed = confirm('Are you sure you want to delete this profile?');
 
-// Function to display the profiles
-function displayProfiles() {
-  const profileList = document.getElementById('profileList');
-  profileList.innerHTML = ''; // Clear the existing profile buttons
+  if (isConfirmed) {
+    // Find the index of the profile in the profileData array
+    const index = profileData.indexOf(profile);
 
-  profileData.forEach((profile, index) => {
-    const buttonContainer = document.createElement('div');
-    buttonContainer.className = 'profileButtonContainer';
-
-    const button = document.createElement('button');
-    button.textContent = profile;
-
-    const editButton = document.createElement('button');
-    editButton.className = 'editButton';
-    
-    const editIcon = document.createElement('img');
-    editIcon.src = '../image/edit-icon-light.png';
-    editIcon.alt = 'Edit';
-
-    editButton.appendChild(editIcon);
-    editButton.addEventListener('click', () => {
-      // Handle edit button click event (replace with your own logic)
-      console.log('Edit button clicked for profile:', profile);
-    });
-
-    buttonContainer.appendChild(button);
-    buttonContainer.appendChild(editButton);
-    profileList.appendChild(buttonContainer);
-  });
+    if (index > -1) {
+      // Remove the profile from the profileData array
+      profileData.splice(index, 1);
+      saveProfileData();
+      displayProfiles();
+    }
+  }
 }
 
+ 
+// Save button and input box
+const saveButton = document.createElement('img');
+saveButton.src = '../image/save-icon.png';
+saveButton.className = 'saveButton';
+saveButton.width = '25';
+saveButton.height = '25';
 
+const profileNameInput = document.createElement('input');
+profileNameInput.type = 'text';
+profileNameInput.className = 'textInput';
+profileNameInput.placeholder = 'Enter a profile name here.'; 
 
-// Save button click event handler
-const saveButton = document.getElementById('saveButton');
+const saveContainer = document.createElement('div');
+saveContainer.id = 'saveContainer';
+saveContainer.style.textAlign = 'right';
+saveContainer.style.display = 'flex';
+saveContainer.style.alignItems = 'center'; 
+saveContainer.style.justifyContent = 'flex-end'; 
+saveContainer.appendChild(profileNameInput);
+
+// Add a space between the text input and save button
+const space = document.createElement('span');
+space.innerHTML = '&nbsp;'; 
+saveContainer.appendChild(space);
+
+saveContainer.appendChild(saveButton);
+
+const footer = document.querySelector('footer');
+document.body.insertBefore(saveContainer, footer);
+
+const popupOverlay = document.createElement('div');
+popupOverlay.id = 'popupOverlay';
+
+const popupContent = document.createElement('div');
+popupContent.id = 'popupContent';
+popupOverlay.appendChild(popupContent);
+
+document.body.insertBefore(popupOverlay, footer);
+
+// Add line breaks
+for (let i = 0; i < 3; i++) {
+  const lineBreak = document.createElement('br');
+  document.body.insertBefore(lineBreak, footer);
+}
+
 saveButton.addEventListener('click', () => {
-  const profileNameInput = document.querySelector('.textInput');
-  let profileName = profileNameInput.value.trim();
-  
-  if (profileName !== '') {
-    // Limit profileName to 20 characters
-    profileName = profileName.substring(0, 16);
+  const profileName = profileNameInput.value.trim();
 
-    if (profileName.length === 16) {
-      alert('The length of your profile name is too long, please reduce the number of characters. The maximum number of characters is 15.');
+  if (profileName !== '') {
+    const limitedProfileName = profileName.substring(0, 16);
+
+    if (limitedProfileName.length === 16) {
+      showAlert(
+        'The length of your profile name is too long, please reduce the number of characters. The maximum number of characters is 15.'
+      );
     } else {
-      const isDuplicate = profileData.some(profile => profile.toLowerCase() === profileName.toLowerCase());
-      
+      const isDuplicate = profileData.some(
+        (profile) => profile.toLowerCase() === limitedProfileName.toLowerCase()
+      );
+
       if (isDuplicate) {
-        alert('A profile with this name already exists. Please choose a different name or add a number afterwards.');
+        showAlert(
+          'A profile with this name already exists. Please choose a different name or add a number afterwards.'
+        );
       } else {
-        addNewProfile(profileName);
-        profileNameInput.value = ''; // Clear the input field
+        addNewProfile(limitedProfileName);
+        profileNameInput.value = ''; 
       }
     }
   }
 });
 
+function showAlert(message) {
+  popupContent.innerHTML = `
+    <p>${message}</p>
+    <button id="popupCloseButton">Close</button>
+  `;
 
+  const popupCloseButton = document.getElementById('popupCloseButton');
+  popupCloseButton.addEventListener('click', closePopup);
 
+  // Display the popup
+  popupOverlay.style.display = 'flex';
+}
 
-// Call the displayProfiles function to initially display the profiles
-displayProfiles();
-
-// Check if the extension is being installed for the first time
-if (!localStorage.getItem('installed')) {
-  // Add the default profile
-  addNewProfile('Default Profile');
-
-  // Set the 'installed' flag in localStorage
-  localStorage.setItem('installed', 'true');
+function closePopup() {
+  // Hide the popup
+  popupOverlay.style.display = 'none';
 }

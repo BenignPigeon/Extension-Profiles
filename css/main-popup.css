@@ -188,24 +188,7 @@ strong {
   transition: .4s;
 }
 
-.dark-mode .textInput {
-  background-color: #222222;
-  color: #ffffff; 
-  border-color: #ffffff; 
-}
 
-.saveButton {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 28px;
-  height: 28px;
-  background-image: url('../image/save-icon.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-}
 
 
 

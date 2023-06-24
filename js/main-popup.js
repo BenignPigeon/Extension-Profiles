@@ -4,10 +4,14 @@ let profileData = JSON.parse(localStorage.getItem('profileData')) || [];
 // Check if there is a default profile
 const hasDefaultProfile = profileData.some(profile => profile.toLowerCase() === 'default profile');
 
-// Add default profile if it doesn't exist
+// Create default profile if it doesn't exist
 if (!hasDefaultProfile) {
   profileData.push('Default Profile');
 }
+
+// Save updated profileData to localStorage
+localStorage.setItem('profileData', JSON.stringify(profileData));
+
 
 // Generate the profile buttons
 const profileList = document.getElementById('profileList');

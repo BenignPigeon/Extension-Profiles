@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Styles for the popup container */
+        .popup-container {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Styles for the text input box */
+        .rename-profile {
+            height: 30px;
+            width: 150px;
+        }
+
+        /* Styles for the icons */
+        .edit-row-icon {
+            height: 35px;
+            width: 35px;
+            margin-right: 0x;
+            margin-left: 15px;
+        }
+
+        .edit-row-delete-icon {
+            height: 35px;
+            width: 35px;
+            margin-right: 8x;
+            margin-left: 10px;
+        }
+
+        /* Styles for the up and down arrows */
+        .edit-row-up-arrow {
+            height: 35px;
+            width: 35px;
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+            margin-right: 10px;
+            flex: 1;
+            max-height: 17.5px;
+            max-width: 17.5px;
+        }
+
+        .edit-row-down-arrow {
+            height: 35px;
+            width: 35px;
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+            margin-right: 10px;
+            flex: 1;
+            max-height: 17.5px;
+            max-width: 17.5px;
+        }
+
+        /* Styles for the download icon */
+        .popup-download {
+            height: 35px;
+            width: 35px;
+            margin-right: 0x;
+            margin-left: 0px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Popup container -->
+    <div class="popup-container">
+        <!-- Text input box -->
+        <input type="text" class="rename-profile">
+
+        <!-- Edit button -->
+        <img src="../image/edit-icon-light.png" alt="Edit" class="edit-row-icon">
+
+        <!-- Delete button -->
+        <img src="../image/delete-icon-light.png" alt="Delete" class="edit-row-delete-icon">
+
+        <!-- Up and down arrows -->
+        <div class="popup-arrows">
+            <img src="../image/up-icon-light.png" alt="Up" class="edit-row-up-arrow">
+            <img src="../image/down-icon-light.png" alt="Down" class="edit-row-down-arrow">
+        </div>
+
+        <!-- Download button -->
+        <img src="../image/download-icon-light.png" alt="Download" class="popup-download">
+    </div>
+</body>
+</html>
